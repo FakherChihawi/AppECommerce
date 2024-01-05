@@ -1,50 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Modifier le Client</title>
+    <title>Modifier le reglement</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
 <div class="container mt-4">
-    <h1>Modifier le produit</h1>
-    <form th:action="@{/produits/update/{id}(id=${produit.id})}" method="post">
-        <input type="hidden" name="id" id="id" th:value="*{produit.id}">
+    <h1>Modifier le reglement</h1>
+    <form th:action="@{/reglements/update/{id}(id=${reglement.id})}" method="post">
+        <input type="hidden" name="id" id="id" th:value="*{reglement.id}">
 
         <div class="mb-3 row">
-            <label for="nom" class="col-sm-2 col-form-label">Nom</label>
+            <label for="factures" class="col-sm-2 col-form-label">Factures</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" name="nom" id="nom" th:value="*{produit.nom}">
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="nom" class="col-sm-2 col-form-label">Description</label>
-            <div class="col-sm-10">
-                <textarea rows="2"  class="form-control" name="description" id="description" th:text="*{produit.description}"></textarea>
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="nom" class="col-sm-2 col-form-label">Prix</label>
-            <div class="col-sm-10">
-                <input type="number"  class="form-control" name="prix" id="prix" th:value="*{produit.prix}">
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="nom" class="col-sm-2 col-form-label">Categories</label>
-            <div class="col-sm-10">
-                <select class="form-control" name="categorie" id="categorie">
+                <select class="form-control" name="factures" id="factures">
                     <option value=""></option>
-                    <option th:each="categorie : ${categories}" th:text="${categorie.nom}" th:value="${categorie.id}"></option>
+                    <option th:each="facture : ${factures}" th:text="${facture.id}" th:value="${facture.id}" th:selected="${facture.id}  == ${reglement.devise.id}"></option>
                 </select>
             </div>
         </div>
+
         <div class="mb-3 row">
-            <label for="nom" class="col-sm-2 col-form-label">Quantite</label>
+            <label for="devises" class="col-sm-2 col-form-label">Factures</label>
             <div class="col-sm-10">
-                <input type="number"  class="form-control" name="stockDisponible" id="stockDisponible" th:value="*{produit.stockDisponible}">
+                <select class="form-control" name="devises" id="devises">
+                    <option value=""></option>
+                    <option th:each="devise : ${devises}" th:text="${devise.nom}" th:value="${devise.id}" th:selected="${devise.id} == ${reglement.devise.id}"></option>
+                </select>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Modifier</button>
-        <a class="btn btn-secondary" href="/produits/">Annuler</a>
+        <a class="btn btn-secondary" href="/reglements/">Annuler</a>
     </form>
 </div>
 

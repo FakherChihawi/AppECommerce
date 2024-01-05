@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-$END$
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-6"><h1>Liste des factures règlees et non règlees</h1></div>
+        <div class="col-6" style="margin-top: 2px">
+            <a class="btn btn-secondary" href="/factures/">Retour</a>
+        </div>
+    </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-reglee-tab" data-bs-toggle="tab" data-bs-target="#nav-reglee"
+                    type="button" role="tab" aria-controls="nav-reglee" aria-selected="true">Règlees
+            </button>
+            <button class="nav-link" id="nav-nonreglee-tab" data-bs-toggle="tab" data-bs-target="#nav-nonreglee"
+                    type="button" role="tab" aria-controls="nav-nonreglee" aria-selected="false">Non règlees
+            </button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-reglee" role="tabpanel" aria-labelledby="nav-reglee-tab">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">NB produits</th>
+                    <th scope="col">Montat total</th>
+                    <th scope="col">Client</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Itération sur la liste des clients -->
+                <tr th:each="facture : ${facturesReglees}">
+                    <td th:text="${facture.date}"></td>
+                    <td th:text="${facture.produits.size()}"></td>
+                    <td th:text="${facture.montantTotal}"></td>
+                    <td th:text="${facture.client.nom}"></td>
+
+                    <td>
+                        <a class="btn btn-primary btn-sm" th:href="@{/factures/edit/{id}(id=${facture.id})}">Éditer</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/factures/delete/{id}(id=${facture.id})}">Supprimer</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-nonreglee" role="tabpanel" aria-labelledby="nav-nonreglee-tab">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">NB produits</th>
+                    <th scope="col">Montat total</th>
+                    <th scope="col">Client</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Itération sur la liste des clients -->
+                <tr th:each="facture : ${facturesNonReglees}">
+                    <td th:text="${facture.date}"></td>
+                    <td th:text="${facture.produits.size()}"></td>
+                    <td th:text="${facture.montantTotal}"></td>
+                    <td th:text="${facture.client.nom}"></td>
+
+                    <td>
+                        <a class="btn btn-primary btn-sm" th:href="@{/factures/edit/{id}(id=${facture.id})}">Éditer</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/factures/delete/{id}(id=${facture.id})}">Supprimer</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>

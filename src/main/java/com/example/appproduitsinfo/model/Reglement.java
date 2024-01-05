@@ -1,4 +1,4 @@
-package com.example.appproduitsinfo.models;
+package com.example.appproduitsinfo.model;
 
 import jakarta.persistence.*;
 
@@ -6,21 +6,51 @@ import java.time.LocalDate;
 
 @Entity
 public class Reglement {
+
+    public enum Status {
+        ENATTENTE("En Attente"),
+        ENCOURS("En Cours"),
+        TERMINE("Terminé");
+
+        private final String label; // Ajout d'un champ pour stocker les valeurs
+
+        Status(String label) {
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+    }
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate date;
-    private double montant;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "devise_id")
     private Devise devise; // Référence vers la devise utilisée pour le règlement
 
+    @ManyToOne
+    @JoinColumn(name = "facture_id")
+    private Facture facture; // Référence vers la facture associée à ce règlement
 
-    public Reglement(LocalDate date, double montant) {
+    public Reglement(Devise devise, Facture facture) {
+        this.date = LocalDate.now();
+        this.status = Status.ENATTENTE;
+        this.devise = devise;
+        this.facture = facture;
+    }
+
+    public Reglement(LocalDate date, Status status) {
         this.date = date;
-        this.montant = montant;
+        this.status = status;
     }
 
     public Reglement() {
@@ -35,6 +65,9 @@ public class Reglement {
         this.id = id;
     }
 
+
+
+
     public LocalDate getDate() {
         return date;
     }
@@ -43,12 +76,12 @@ public class Reglement {
         this.date = date;
     }
 
-    public double getMontant() {
-        return montant;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setMontant(double montant) {
-        this.montant = montant;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Devise getDevise() {
@@ -57,5 +90,13 @@ public class Reglement {
 
     public void setDevise(Devise devise) {
         this.devise = devise;
+    }
+
+    public Facture getFacture() {
+        return facture;
+    }
+
+    public void setFacture(Facture facture) {
+        this.facture = facture;
     }
 }

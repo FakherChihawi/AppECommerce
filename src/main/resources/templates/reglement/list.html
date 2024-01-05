@@ -9,35 +9,31 @@
 <body>
 <div class="container mt-4">
     <div class="row">
-        <div class="col-6"><h1>Liste des produits</h1></div>
+        <div class="col-6"><h1>Liste des reglements</h1></div>
         <div class="col-6" style="margin-top: 2px">
-            <a class="btn btn-success" href="/produits/new">Ajouter un nouveau produit</a>
+            <a class="btn btn-success" href="/reglements/new">Ajouter un nouveau reglement</a>
             <a class="btn btn-second" href="/">Retoure</a>
         </div>
     </div>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Description</th>
-            <th scope="col">Categorie</th>
-            <th scope="col">Prix</th>
-            <th scope="col">Quantite</th>
+            <th scope="col">Date</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Devise</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
         <!-- Itération sur la liste des clients -->
-        <tr th:each="produit : ${produits}">
-            <td scope="row" th:text="${produit.nom}"></td>
-            <td th:text="${produit.description}"></td>
-            <td th:text="${produit.categorie.nom}"></td>
-            <td th:text="${produit.prix}"></td>
-            <td th:text="${produit.stockDisponible}"></td>
+        <tr th:each="reglement : ${reglements}">
+            <td scope="row" th:text="${reglement.facture.date}"></td>
+            <td th:text="${reglement.facture.montantTotal}"></td>
+            <td th:text="${reglement.devise.nom}"></td>
 
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/produits/edit/{id}(id=${produit.id})}">Éditer</a>
-                <a class="btn btn-danger btn-sm" th:href="@{/produits/delete/{id}(id=${produit.id})}">Supprimer</a>
+                <a class="btn btn-primary btn-sm" th:href="@{/reglements/edit/{id}(id=${reglement.id})}">Éditer</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/reglements/delete/{id}(id=${reglement.id})}">Supprimer</a>
             </td>
         </tr>
         </tbody>

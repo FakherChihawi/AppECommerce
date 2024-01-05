@@ -9,33 +9,33 @@
 <body>
 <div class="container mt-4">
     <div class="row">
-        <div class="col-6"><h1>Liste des Clients</h1></div>
+        <div class="col-6"><h1>Liste des Factures</h1></div>
         <div class="col-6" style="margin-top: 2px">
-            <a class="btn btn-success" href="/clients/new">Ajouter un nouveau client</a>
+            <a class="btn btn-success" href="/factures/new">Ajouter un nouveau factures</a>
+            <a class="btn btn-info" href="/factures/filter_reglee">Liste des factures règlees et non règlees</a>
             <a class="btn btn-second" href="/">Retoure</a>
         </div>
     </div>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Adresse</th>
-            <th scope="col">Tel</th>
-            <th scope="col">Email</th>
-            <th scope="col">Actions</th>
+            <th scope="col">Date</th>
+            <th scope="col">NB produits</th>
+            <th scope="col">Montat total</th>
+            <th scope="col">Client</th>
         </tr>
         </thead>
         <tbody>
         <!-- Itération sur la liste des clients -->
-        <tr th:each="client : ${clients}">
-            <td scope="row" th:text="${client.nom}"></td>
-            <td th:text="${client.adresse}"></td>
-            <td th:text="${client.tel}"></td>
-            <td th:text="${client.email}"></td>
+        <tr th:each="facture : ${factures}">
+            <td th:text="${facture.date}"></td>
+            <td th:text="${facture.produits.size()}"></td>
+            <td th:text="${facture.montantTotal}"></td>
+            <td th:text="${facture.client.nom}"></td>
 
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/clients/edit/{id}(id=${client.id})}">Éditer</a>
-                <a class="btn btn-danger btn-sm" th:href="@{/clients/delete/{id}(id=${client.id})}">Supprimer</a>
+                <a class="btn btn-primary btn-sm" th:href="@{/factures/edit/{id}(id=${facture.id})}">Éditer</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/factures/delete/{id}(id=${facture.id})}">Supprimer</a>
             </td>
         </tr>
         </tbody>

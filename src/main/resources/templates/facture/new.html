@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Ajouter un Nouveau Client</title>
+    <title>Ajouter un Nouveau facture</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
 <div class="container mt-4">
-    <h1>Ajouter un Nouveau Client</h1>
-    <form action="/clients/save" method="post">
+    <h1>Ajouter une nouvelle facture</h1>
+    <form action="/factures/save" method="post">
+        <div class="mb-3 row">
+            <label for="clients" class="col-sm-2 col-form-label">Client</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="clients" id="clients">
+                    <option value=""></option>
+                    <option th:each="client : ${clients}" th:text="${client.nom}" th:value="${client.id}"></option>
+                </select>
+            </div>
+        </div>
 
         <div class="mb-3 row">
-            <label for="nom" class="col-sm-2 col-form-label">Nom</label>
+            <label for="produits" class="col-sm-2 col-form-label">Produit</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" name="nom" id="nom" value="">
+                <select class="form-control" multiple name="produits" id="produits">
+                    <option th:each="produit : ${produits}" th:text="${produit.nom}" th:value="${produit.id}"></option>
+                </select>
             </div>
         </div>
+
         <div class="mb-3 row">
-            <label for="adresse" class="col-sm-2 col-form-label">Adresse</label>
+            <label for="etat1" class="col-sm-2 col-form-label">Etat</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" name="adresse" id="adresse" value="">
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="tel" class="col-sm-2 col-form-label">Tel</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" name="tel" id="tel" value="">
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="email" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="text"  class="form-control" name="email" id="email" value="">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="etat" id="etat1" value="PAYEE">
+                    <label class="form-check-label" for="etat1">
+                        payée
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="etat" id="etat2" value="NONPAYEE" checked>
+                    <label class="form-check-label" for="etat2">
+                        Non payée
+                    </label>
+                </div>
             </div>
         </div>
 
 
         <button type="submit" class="btn btn-primary">Ajouter</button>
-        <a class="btn btn-secondary" href="/clients/">Annuler</a>
+        <a class="btn btn-secondary" href="/factures/">Annuler</a>
     </form>
 </div>
 

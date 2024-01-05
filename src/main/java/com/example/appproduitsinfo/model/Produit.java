@@ -1,4 +1,4 @@
-package com.example.appproduitsinfo.models;
+package com.example.appproduitsinfo.model;
 
 import jakarta.persistence.*;
 
@@ -50,7 +50,7 @@ public class Produit {
     }
 
     public String getNom() {
-        return nom;
+        return this.nom;
     }
 
     public void setNom(String nom) {

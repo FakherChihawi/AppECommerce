@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-$END$
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-6"><h1>Liste des produits plus vendus</h1></div>
+        <div class="col-6" style="margin-top: 2px">
+            <a class="btn btn-secondary" href="/produits/">Retour</a>
+        </div>
+    </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-global-tab" data-bs-toggle="tab" data-bs-target="#nav-global"
+                    type="button" role="tab" aria-controls="nav-global" aria-selected="true">Globale
+            </button>
+            <button class="nav-link" id="nav-byyear-tab" data-bs-toggle="tab" data-bs-target="#nav-byyear"
+                    type="button" role="tab" aria-controls="nav-byyear" aria-selected="false">Par Année
+            </button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-global" role="tabpanel" aria-labelledby="nav-global-tab">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Catégorie</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Quantité</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Itération sur la liste des produits globalement vendus -->
+                <tr th:each="produit : ${produitsLesPlusVendusGlobalement}">
+                    <td scope="row" th:text="${produit.nom}"></td>
+                    <td th:text="${produit.description}"></td>
+                    <td th:text="${produit.categorie.nom}"></td>
+                    <td th:text="${produit.prix}"></td>
+                    <td th:text="${produit.stockDisponible}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-byyear" role="tabpanel" aria-labelledby="nav-byyear-tab">
+            <!-- Itération sur les produits par année -->
+            <div th:each="produitAnnee : ${produitsLesPlusVendusParAnnee}">
+                <span th:text="${produitAnnee.getKey()}"></span>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Quantité</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Itération sur la liste des produits par année -->
+                    <tr th:each="produit : ${produitAnnee.getValue()}">
+                        <td scope="row" th:text="${produit.nom}"></td>
+                        <td th:text="${produit.description}"></td>
+                        <td th:text="${produit.categorie.nom}"></td>
+                        <td th:text="${produit.prix}"></td>
+                        <td th:text="${produit.stockDisponible}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>

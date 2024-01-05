@@ -6,9 +6,8 @@
 </head>
 <body>
 <div class="container mt-4">
-    <h1>Ajouter un Nouveau Client</h1>
-    <form action="/clients/save" method="post">
-
+    <h1>Ajouter un nouveau produit</h1>
+    <form action="/produits/save" method="post">
         <div class="mb-3 row">
             <label for="nom" class="col-sm-2 col-form-label">Nom</label>
             <div class="col-sm-10">
@@ -16,27 +15,35 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="adresse" class="col-sm-2 col-form-label">Adresse</label>
+            <label for="nom" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" name="adresse" id="adresse" value="">
+                <textarea rows="2"  class="form-control" name="description" id="description"></textarea>
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="tel" class="col-sm-2 col-form-label">Tel</label>
+            <label for="nom" class="col-sm-2 col-form-label">Prix</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" name="tel" id="tel" value="">
+                <input type="number"  class="form-control" name="prix" id="prix" value="">
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <label for="nom" class="col-sm-2 col-form-label">Categories</label>
             <div class="col-sm-10">
-                <input type="text"  class="form-control" name="email" id="email" value="">
+                <select class="form-control" name="categorie" id="categorie">
+                    <option value=""></option>
+                    <option th:each="categorie : ${categories}" th:text="${categorie.nom}" th:value="${categorie.id}"></option>
+                </select>
+
             </div>
         </div>
-
-
+        <div class="mb-3 row">
+            <label for="nom" class="col-sm-2 col-form-label">Quantite</label>
+            <div class="col-sm-10">
+                <input type="number"  class="form-control" name="stockDisponible" id="stockDisponible" value="">
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">Ajouter</button>
-        <a class="btn btn-secondary" href="/clients/">Annuler</a>
+        <a class="btn btn-secondary" href="/produits/">Annuler</a>
     </form>
 </div>
 

@@ -1,9 +1,5 @@
 package com.example.appproduitsinfo.controller;
-import com.example.appproduitsinfo.model.Categorie;
-import com.example.appproduitsinfo.model.Client;
 import com.example.appproduitsinfo.model.Devise;
-import com.example.appproduitsinfo.model.Produit;
-import com.example.appproduitsinfo.repository.CategorieRepository;
 import com.example.appproduitsinfo.repository.DeviseRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +10,8 @@ import java.util.List;
 
 @Controller
 @RequestMapping (value = "/devises")
-public class DevisController {
+public class DeviseController {
+    @Autowired
     private DeviseRepository deviseRepository;
 
     @RequestMapping (value = "/")
@@ -23,7 +20,6 @@ public class DevisController {
         model.addAttribute("devises", devises);
         return "devise/list";
     }
-
     @RequestMapping (value = "/new")
     public String newDevise ()
     {
@@ -33,7 +29,7 @@ public class DevisController {
     @PostMapping("/save")
     public String saveDevises(HttpServletRequest request) {
         String nom = request.getParameter("nom");
-        Devise devise = new Devise();
+        Devise devise = new Devise(nom);
         deviseRepository.save(devise);
         return "redirect:/devises/";
     }

@@ -1,10 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-$END$
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-8">le Client: <h1 th:text="${client.nom}"></h1></div>
+        <div class="col-4">
+            <a class="btn btn-info" href="/clients/">Retoure</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" style="margin-top: 2px">
+            <div class="row">Email: <span th:text="${client.email}"></span></div>
+            <div class="row">Tel: <span th:text="${client.tel}"></span></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            Le chiffre d’affaires réalisé avec l’entreprise globale: <span th:text="${chiffreAffairesGlobal}"></span>
+        </div>
+        <div class="col-6">
+            Le reste global des montants non encore payés: <span th:text="${resteGlobaleNonPayee}"></span>
+        </div>
+    </div>
+
+    <br/>
+    Le chiffre d’affaires réalisé avec l’entreprise par annee :
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" th:each="chiffreAnnee : ${chiffreAffairesParAnnee}" th:text="${chiffreAnnee.getKey()}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Itération sur la liste des clients -->
+        <tr>
+            <td scope="row"  th:each="chiffreAnnee : ${chiffreAffairesParAnnee}" th:text="${chiffreAnnee.getValue()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-6">
+            Les factures réglées:
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">NB produits</th>
+                    <th scope="col">Montat total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Itération sur la liste des clients -->
+                <tr th:each="facture : ${facturesReglees}">
+                    <td th:text="${facture.date}"></td>
+                    <td th:text="${facture.produits.size()}"></td>
+                    <td th:text="${facture.montantTotal}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            Les factures non encore réglées:
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">NB produits</th>
+                    <th scope="col">Montat total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Itération sur la liste des clients -->
+                <tr th:each="facture : ${facturesNonReglees}">
+                    <td th:text="${facture.date}"></td>
+                    <td th:text="${facture.produits.size()}"></td>
+                    <td th:text="${facture.montantTotal}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        Les produits les plus sollicités:
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Description</th>
+                <th scope="col">Categorie</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Quantite</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Itération sur la liste des clients -->
+            <tr th:each="produit : ${produitsLesPlusSollicites}">
+                <td scope="row" th:text="${produit.nom}"></td>
+                <td th:text="${produit.description}"></td>
+                <td th:text="${produit.categorie.nom}"></td>
+                <td th:text="${produit.prix}"></td>
+                <td th:text="${produit.stockDisponible}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>
