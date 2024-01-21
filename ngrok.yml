@@ -1,0 +1,10 @@
+version: 2
+authtoken: 2XB6a7GNW6R5TWTy2r4wR6KUUxf_2jT43dL9b4EH8hL9fbm7o
+tunnels:
+  website:
+    addr: jenkins:8080
+    schemes:
+      - https
+    inspect: true
+    proto: http
+    domain: orca-obliging-rapidly.ngrok-free.app
