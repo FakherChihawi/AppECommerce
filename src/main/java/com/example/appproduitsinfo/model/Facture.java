@@ -1,6 +1,6 @@
 package com.example.appproduitsinfo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;

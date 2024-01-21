@@ -6,7 +6,7 @@ import com.example.appproduitsinfo.model.Produit;
 import com.example.appproduitsinfo.repository.ClientRepository;
 import com.example.appproduitsinfo.repository.FactureRepository;
 import com.example.appproduitsinfo.services.ClientServices;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

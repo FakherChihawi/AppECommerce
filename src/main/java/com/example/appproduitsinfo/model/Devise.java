@@ -1,6 +1,6 @@
 package com.example.appproduitsinfo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Devise {
